@@ -1,0 +1,28 @@
+{
+  "name": "adsmaker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "eche \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyima6999/adsMaker_Bend.git"
+  },
+  "author": "nyima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyima6999/adsMaker_Bend/issues"
+  },
+  "homepage": "https://github.com/nyima6999/adsMaker_Bend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.0",
+    "nodemon": "^2.0.15"
+  }
+}
