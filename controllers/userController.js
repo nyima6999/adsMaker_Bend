@@ -1,6 +1,7 @@
 const User = require("../models/UserModel");
 const asyncHandler = require("express-async-handler");
 
+// user authentification function
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   // define user data
@@ -34,4 +35,21 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
   });
 });
-module.exports = { registerUser };
+
+// user login authentification function
+const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.find({ email });
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid Email Or Password");
+  }
+});
+
+module.exports = { registerUser, authUser };
