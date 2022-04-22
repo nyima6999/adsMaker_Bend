@@ -1,7 +1,8 @@
 const User = require("../models/UserModel");
 const asyncHandler = require("express-async-handler");
+const generateToken = require("../utils/token");
 
-// user authentification function
+// user registration authentification function
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   // define user data
@@ -9,9 +10,9 @@ const registerUser = asyncHandler(async (req, res) => {
   if (userExists) {
     res.status(400);
     throw new Error("user already exist");
-    // if user exist in mongoose , throw this error
+    // if user exist in mongodb , throw this user exits error
   }
-  // if user not exist, create a new user
+  // if user not exist, save this user
   const user = await User.create({
     name,
     email,
@@ -24,6 +25,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);
@@ -41,10 +43,12 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.find({ email });
   if (user && (await user.matchPassword(password))) {
+    // matchPassword function from userModels
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);

@@ -23,7 +23,7 @@ userSchema.pre("save", async function (next) {
 // matching password entered with password in database
 userSchema.methods.matchPassword = async function (passwordEntered) {
   return await bcrypt.compare(passwordEntered, this.password);
-  // this.password; the password coming from the database
+  // this.password; the password coming from the database/mongodb
 };
 
 const User = mongoose.model("User", userSchema);
