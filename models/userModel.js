@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    username: { type: String, required: true, minlength: 4 },
+    name: { type: String, required: true, minlength: 4 },
     email: { type: String, requred: true, unique: true },
     password: { type: String, required: true },
   },
@@ -21,6 +21,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // matching password entered with password in database
+// bcrypting the password
 userSchema.methods.matchPassword = async function (passwordEntered) {
   return await bcrypt.compare(passwordEntered, this.password);
   // this.password; the password coming from the database/mongodb
