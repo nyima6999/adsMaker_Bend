@@ -27,6 +27,7 @@ userSchema.methods.matchPassword = async function (passwordEntered) {
   // this.password; the password coming from the database/mongodb
 };
 
+mongoose.models = {};
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

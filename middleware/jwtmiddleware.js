@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
+
 const protect = asyncHandler(async (req, res, next) => {
   // user pass throught protect before reaching API(get request)
   let token;
@@ -24,6 +25,10 @@ const protect = asyncHandler(async (req, res, next) => {
       res.status(401);
       throw new Error("Not athorized, token failed");
     }
+  }
+  if (!token) {
+    res.status(401);
+    throw new Error("Not authorized, no token");
   }
 });
 module.exports = { protect };
